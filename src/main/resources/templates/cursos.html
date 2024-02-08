@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cursos</title>
+  <!-- Agrega los estilos de Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Agrega Font Awesome para los iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Algerian', sans-serif;
+      background-color: #f8f9fa; /* Color de fondo */
+    }
+    .navbar {
+      background-color: #343a40; /* Color de fondo del navbar */
+    }
+
+    h1 {
+      color: #343a40; /* Color del título */
+    }
+    table {
+      background-color: #ffffff; /* Color de fondo de la tabla */
+      border-radius: 10px; /* Bordes redondeados */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    }
+    .table-hover tbody tr:hover {
+      background-color: #f2f2f2; /* Cambio de color al pasar el mouse sobre las filas */
+    }
+    .btn-action {
+      margin-right: 5px; /* Espacio entre los botones */
+    }
+  </style>
+</head>
+<body>
+<div class="container" th:replace="fragments/header :: header"></div>
+<br>
+<div class="container mb-5" style="border-radius: 20px; color: white; text-align: center">
+  <div class="container mb-5">
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show text-center message">
+      [[${message}]]
+      <button type="button" class="close" data-dismiss="alert" aria-label="Cerrar">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>
+<br>
+<div class="container mt-2">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <h1 class="text-center">Lista de Cursos</h1>
+      <div class="container">
+        <div class="col-md-12 d-flex justify-content-start">
+          <a th:href="@{/export/pdf}" class="btn btn-danger btn-sm btn-action"><i class="fas fa-file-pdf"></i> Generar PDF</a>
+          <a th:href="@{/export/excel}" class="btn btn-success btn-sm btn-action"><i class="fas fa-file-excel"></i> Generar Excel</a>
+        </div>
+      </div>
+      <table class="table table-striped table-sm table-hover mt-2">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Titulo</th>
+          <th scope="col">Descripcion</th>
+          <th scope="col">Nivel</th>
+          <th scope="col">Publicado</th>
+          <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="curso: ${cursos}">
+          <td th:text="${curso.id}"></td>
+          <td th:text="${curso.titulo}"></td>
+          <td th:text="${curso.descripcion}"></td>
+          <td th:text="${curso.nivel}"></td>
+          <td th:text="${curso.publicado}"></td>
+          <td>
+            <a th:href="@{/editar/{id}(id=${curso.id})}" class="btn btn-primary btn-sm btn-action"><i class="fas fa-edit"></i> Editar</a>
+            <a th:href="@{'/cursos/eliminar/' + ${curso.id}}" class="btn btn-danger btn-sm btn-action"><i class="fas fa-trash-alt"></i> Eliminar</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Agrega los scripts de Bootstrap y jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>

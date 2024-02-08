@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crear Curso</title>
+  <!-- Agrega los estilos de Bootstrap -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Agrega Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Agrega jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <style>
+    body {
+      font-family: 'Algerian', sans-serif;
+      background-color: #f8f9fa; /* Color de fondo */
+    }
+    .container {
+      background-color: #ffffff; /* Color de fondo del contenedor */
+      border-radius: 10px; /* Bordes redondeados */
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+      padding: 20px; /* Espaciado interno */
+      margin-top: 20px; /* Margen superior */
+    }
+    h1 {
+      color: #343a40; /* Color del título */
+      font-family: 'Algerian', sans-serif; /* Cambio de fuente */
+    }
+    label {
+      font-family: 'Algerian', sans-serif; /* Cambio de fuente */
+    }
+  </style>
+</head>
+<body>
+<div class="container" th:replace="fragments/header :: header"></div>
+
+<div class="container mt-4">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h1 class="text-center"><i class="fas fa-plus-circle"></i> Crear Curso</h1>
+      <form action="#" th:action="@{/cursos/save}" th:object="${curso}" method="post">
+        <div class="form-group">
+          <label for="titulo" style="color: #343a40;"><i class="fas fa-book"></i> Título:</label>
+          <input type="text" class="form-control" id="titulo" th:field="*{titulo}" required>
+        </div>
+        <div class="form-group">
+          <label for="descripcion" style="color: #343a40;"><i class="fas fa-file-alt"></i> Descripción:</label>
+          <input type="text" class="form-control" id="descripcion" th:field="*{descripcion}" required>
+        </div>
+        <div class="form-group">
+          <label for="nivel" style="color: #343a40;"><i class="fas fa-layer-group"></i> Nivel:</label>
+          <input type="text" class="form-control" id="nivel" th:field="*{nivel}" required>
+        </div>
+        <div class="form-group form-check">
+          <input type="checkbox" class="form-check-input" id="publicado" th:field="*{publicado}">
+          <label class="form-check-label" for="publicado" style="color: #343a40;"> Publicado</label>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Guardar</button>
+        <button type="button" class="btn btn-danger" id="btnCancelar"><i class="fas fa-times"></i> Cancelar</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Agrega los scripts de Bootstrap y jQuery -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function (){
+    $("#btnCancelar").on("click", function (){
+      window.location.href = "/cursos";
+    });
+  });
+</script>
+</body>
+</html>
