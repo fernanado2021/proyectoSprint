@@ -19,7 +19,7 @@ public class CursoExporterPDF {
     }
     private void writeTableHeader(PdfPTable table){
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.BLUE);
+        cell.setBackgroundColor(Color.BLACK);
         cell.setPadding(5);
         Font font = FontFactory.getFont(FontFactory.HELVETICA);
         font.setColor(Color.WHITE);
@@ -52,7 +52,7 @@ public class CursoExporterPDF {
         document.open();
         Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
         font.setSize(18);
-        font.setColor(Color.BLUE);
+        font.setColor(Color.BLACK);
         Paragraph p = new Paragraph("Lista de cursos", font);
         p.setAlignment(Paragraph.ALIGN_CENTER);
         document.add(p);

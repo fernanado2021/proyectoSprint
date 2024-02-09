@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cursos</title>
+  <title>Cursos ITSQMET</title>
+  <link rel="icon" href="https://campusvirtual.itsqmet.edu.ec/campusV/css/img/EscudoP1.png" type="image/x-icon">
   <!-- Agrega los estilos de Bootstrap -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <!-- Agrega Font Awesome para los iconos -->
@@ -14,22 +15,39 @@
       background-color: #f8f9fa; /* Color de fondo */
     }
     .navbar {
-      background-color: #343a40; /* Color de fondo del navbar */
+      background-color: #007bff; /* Color de fondo del navbar */
+      color: #fff; /* Color del texto del navbar */
     }
 
     h1 {
-      color: #343a40; /* Color del título */
+      color: #000; /* Color del título */
     }
     table {
-      background-color: #ffffff; /* Color de fondo de la tabla */
+      background-color: #fff; /* Color de fondo de la tabla */
       border-radius: 10px; /* Bordes redondeados */
       box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra */
     }
     .table-hover tbody tr:hover {
-      background-color: #f2f2f2; /* Cambio de color al pasar el mouse sobre las filas */
+      background-color: #f8f9fa; /* Cambio de color al pasar el mouse sobre las filas */
     }
     .btn-action {
       margin-right: 5px; /* Espacio entre los botones */
+      transition: all 0.3s ease; /* Transición suave */
+    }
+    .btn-action:hover {
+      transform: scale(1.1); /* Efecto de escala al pasar el mouse */
+    }
+    .search {
+      position: relative;
+    }
+    .search input[type="search"] {
+      padding-right: 35px; /* Espacio para el icono de búsqueda */
+    }
+    .search i.fa-search {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
     }
   </style>
 </head>
@@ -51,6 +69,36 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
       <h1 class="text-center">Lista de Cursos</h1>
+
+      <div class="container my-3">
+        <form id="searchForm" th:action="@{/cursos}">
+          <div class="row justify-content-center">
+            <div class="col-md-7">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-search"></i></span>
+                </div>
+                <input id="keyword" type="search" name="keyword" th:value="${keyword}" required class="form-control" placeholder="Buscar">
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <label class="input-group-text" for="pageSize">Elementos por Página</label>
+                  <select form="searchForm" name="size" th:value="${pageSize}" onchange="changePageSize()" class="custom-select" id="pageSize">
+                    <option th:each="s : ${ { 3, 6, 9 } }" th:value="${s}" th:text="${s}" th:selected="${s == pageSize}"></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-1">
+              <button type="submit" class="btn btn-success btn-block"><i class="fa fa-search"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
       <div class="container">
         <div class="col-md-12 d-flex justify-content-start">
           <a th:href="@{/export/pdf}" class="btn btn-danger btn-sm btn-action"><i class="fas fa-file-pdf"></i> Generar PDF</a>
@@ -86,6 +134,11 @@
   </div>
 </div>
 
+<script type="text/javascript">
+  function changePageSize(){
+    $("#searchForm").submit();
+  }
+</script>
 <!-- Agrega los scripts de Bootstrap y jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
